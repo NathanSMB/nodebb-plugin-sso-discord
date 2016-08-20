@@ -1,29 +1,30 @@
 {
-  "name": "nodebb-plugin-sso-oauth",
-  "version": "0.3.1",
-  "description": "NodeBB Generic OAuth SSO",
+  "name": "nodebb-plugin-sso-discord",
+  "version": "1.0.0",
+  "description": "NodeBB Discord SSO",
   "main": "library.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/julianlam/nodebb-plugin-sso-oauth"
+    "url": "https://github.com/NathanSMB/nodebb-plugin-sso-discord"
   },
   "keywords": [
     "nodebb",
     "plugin",
     "oauth",
     "oauth2",
+    "discord",
     "sso",
     "single sign on",
     "login",
     "registration"
   ],
   "author": {
-    "name": "Julian Lam",
-    "email": "julian@nodebb.org"
+    "name": "Nathan Burchill",
+    "email": "nathan@burchill.io"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/julianlam/nodebb-plugin-sso-oauth/issues"
+    "url": "https://github.com/NathanSMB/nodebb-plugin-sso-discord/issues"
   },
   "readme": "",
   "readmeFilename": "README.md",
