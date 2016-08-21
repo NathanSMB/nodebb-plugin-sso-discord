@@ -8,7 +8,8 @@
 		{ "hook": "static:app.load", "method": "init" },
 		{ "hook": "filter:admin.header.build", "method": "addMenuItem" },
 		{ "hook": "filter:user.delete", "method": "deleteUserData" },
-		{ "hook": "filter:auth.init", "method": "getStrategy" }
+		{ "hook": "filter:auth.init", "method": "getStrategy" },
+		{ "hook": "filter:widgets.getAreas", "method": "setWidgetAreas" }
 	],
 	"templates": "templates"
 }
