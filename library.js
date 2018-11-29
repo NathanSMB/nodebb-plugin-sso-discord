@@ -35,8 +35,6 @@
 			oauth2: {
 				authorizationURL: 'https://discordapp.com/api/oauth2/authorize',
 				tokenURL: 'https://discordapp.com/api/oauth2/token',
-				clientID: nconf.get('oauth:id'),	// don't change this line
-				clientSecret: nconf.get('oauth:secret'),	// don't change this line
 			},
 			userRoute: 'https://discordapp.com/api/users/@me'
 		},
@@ -224,27 +222,20 @@
 		});
 	};
 
-	OAuth.deleteUserData = function(data, callback) {
+	OAuth.deleteUserData = function(uid, callback) {
 		async.waterfall([
-			async.apply(User.getUserField, data.uid, constants.name + 'Id'),
+			async.apply(User.getUserField, uid, constants.name + 'Id'),
 			function(oAuthIdToDelete, next) {
 				db.deleteObjectField(constants.name + 'Id:uid', oAuthIdToDelete, next);
 			}
 		], function(err) {
 			if (err) {
-				winston.error('[sso-oauth] Could not remove OAuthId data for uid ' + data.uid + '. Error: ' + err);
+				winston.error('[sso-discord] Could not remove OAuthId data for uid ' + uid + '. Error: ' + err);
 				return callback(err);
 			}
-
-			callback(null, data);
+			callback(null, uid);
 		});
 	};
-
-  // If this filter is not there, the deleteUserData function will fail when getting the oauthId for deletion.
-  OAuth.whitelistFields = function(params, callback) {
-    params.whitelist.push(constants.name + 'Id');
-    callback(null, params);
-  };
 
 	module.exports = OAuth;
 }(module));
