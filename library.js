@@ -285,7 +285,7 @@ OAuth.deleteUserData = function(data, callback) {
 
 OAuth.whitelistFields = function(params, callback) {
 	params.whitelist.push(constants.name + 'Id');
-    callback(null, params);
+	callback(null, params);
 };
 
 module.exports = OAuth;
