@@ -91,7 +91,7 @@ OAuth.setWidgetAreas = function(areas, callback){
 			'location': 'content'
 		}
 	]);
-	cb(null, areas);
+	callback(null, areas);
 }
 
 OAuth.addMenuItem = function(custom_header, callback) {
