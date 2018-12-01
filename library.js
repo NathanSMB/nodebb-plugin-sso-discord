@@ -34,6 +34,8 @@ var constants = {
 		oauth2: {
 			authorizationURL: 'https://discordapp.com/api/oauth2/authorize',
 			tokenURL: 'https://discordapp.com/api/oauth2/token',
+			clientID: nconf.get('oauth:id'),
+			clientSecret: nconf.get('oauth:secret')
 		},
 		userRoute: 'https://discordapp.com/api/users/@me'
 	},
@@ -89,7 +91,7 @@ OAuth.setWidgetAreas = function(areas, callback){
 			'location': 'content'
 		}
 	]);
-	cb(null, areas);
+	callback(null, areas);
 }
 
 OAuth.addMenuItem = function(custom_header, callback) {
@@ -266,19 +268,24 @@ OAuth.getUidByOAuthid = function(oAuthid, callback) {
 	});
 };
 
-OAuth.deleteUserData = function(uid, callback) {
+OAuth.deleteUserData = function(data, callback) {
 	async.waterfall([
-		async.apply(User.getUserField, uid, constants.name + 'Id'),
+		async.apply(User.getUserField, data.uid, constants.name + 'Id'),
 		function(oAuthIdToDelete, next) {
 			db.deleteObjectField(constants.name + 'Id:uid', oAuthIdToDelete, next);
 		}
 	], function(err) {
 		if (err) {
-			winston.error('[sso-discord] Could not remove OAuthId data for uid ' + uid + '. Error: ' + err);
+			winston.error('[sso-discord] Could not remove OAuthId data for uid ' + data.uid + '. Error: ' + err);
 			return callback(err);
 		}
-		callback(null, uid);
+		callback(null, data);
 	});
+};
+
+OAuth.whitelistFields = function(params, callback) {
+	params.whitelist.push(constants.name + 'Id');
+	callback(null, params);
 };
 
 module.exports = OAuth;
